@@ -16,6 +16,6 @@ class Pir {
         bool present;
         int pin;
         long lastTimeSync;
-}
+};
 
 #endif

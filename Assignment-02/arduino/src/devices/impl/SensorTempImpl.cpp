@@ -1,4 +1,4 @@
-#include "api/SensorTemp.h"
+#include "devices/api/SensorTemp.h"
 #include "Arduino.h"
 
 SensorTemp::SensorTemp(int pin)

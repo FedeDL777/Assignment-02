@@ -9,6 +9,6 @@ class Led{
 
     private:
     int pin;
-}
+};
 
 #endif

@@ -1,5 +1,7 @@
-#include "api/Button.h"
+#include "devices/api/Button.h"
 #include "Arduino.h"
+
+
 
 
 Button::Button(int pin)
@@ -9,10 +11,7 @@ Button::Button(int pin)
     sync();
 }
 
-bool Button::pressed()
-{
-    return pressed;
-}
+
 /*
 bool Button::clicked()
 {
@@ -32,4 +31,9 @@ void Button::updateSyncTime(long time)
 long Button::getLastSyncTime()
 {
     return lastTimeSync;
+}
+
+bool Button::isPressed()
+{
+    return pressed;
 }

@@ -6,7 +6,9 @@ class Sonar{
         Sonar(int echoPin, int trigPin, float temperature);
         float getDistance();
         void setTemperature(float temp);
+        
     private:
+        float getSoundSpeed(); 
         int echoPin;
         int trigPin;
         double soundSpeed;

@@ -9,6 +9,6 @@ class SensorTemp{
     private:
         int pin;
 
-}
+};
 
 #endif

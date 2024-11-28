@@ -1,6 +1,5 @@
-#include "api/Sonar.h"
+#include "devices/api/Sonar.h"
 #include "Arduino.h"
-#include "Sonar.h"
 
 Sonar::Sonar(int echoPin, int trigPin, float temperature)
 {
@@ -9,7 +8,6 @@ Sonar::Sonar(int echoPin, int trigPin, float temperature)
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
     temperature=20;
-    soundSpeed = getSoundSpeed();
 }
 
 float Sonar::getSoundSpeed(){

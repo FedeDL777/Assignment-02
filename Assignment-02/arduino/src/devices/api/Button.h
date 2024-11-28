@@ -4,11 +4,12 @@
 class Button{
 public:
     Button(int pin);
-    bool pressed();
+    
+    
    // bool clicked();
     void sync();
     long getLastSyncTime();
-
+    bool isPressed();
 protected:
     void updateSyncTime(long time);
 
