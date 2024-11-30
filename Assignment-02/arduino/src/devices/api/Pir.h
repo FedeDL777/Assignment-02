@@ -9,7 +9,7 @@ class Pir {
         void calibrate();
         void sync();
         long getLastSyncTime();
-        virtual bool isDetected() = 0;
+
 
 
     private:
