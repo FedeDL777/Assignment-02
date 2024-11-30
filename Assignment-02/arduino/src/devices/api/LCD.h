@@ -1,18 +1,14 @@
 #ifndef __LCD__
 #define __LCD__
-#include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include "set-up.h"
 class LCD{
     public:
     LCD();
     void setup();
-    void sync();
 
     void turnOff();
     void turnOn();
-
-    bool started();
 
     void displayAwake();
     void displayOpeningContainer();
