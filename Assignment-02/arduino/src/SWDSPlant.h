@@ -11,21 +11,47 @@
 #include "devices/api/Sonar.h"
 
 class SWDSPlant {
-    public:
+public:
     SWDSPlant();
     void init();
     
     void awake();
+    void converterForAwaking();
     void awaking();
     void sleep();
-
+    void converterForSleep();
     void openContainer();
+    void opened();
     void closeContainer();
-    
+    void closed();
+    void full();
+    void problemDetected();  
+    void emptingContainer();
+    void restore();
+
+    bool preSleepFull();
+    bool preSleepProblem();
+    bool preSleepAwake();
+
+    bool isAwake();
+    bool isFull();
+    bool asProblem();
+    bool isInSleep();
+    bool isOpening();
+    bool isOpen();
+    bool isClosing();
+    bool isClose();  
+    bool isEmpting();
+    bool isRestore();
+
 
     void checkUserPir();
     void checkDistance();
     void checkTemperature();
+
+    bool getUserPresence();
+    double getDistance();
+    double getTemperature();
     private:
         double curTemperature;
         double curDistance;
@@ -34,19 +60,24 @@ class SWDSPlant {
         enum{
             AWAKE, OPENING_CONTAINER, OPEN, CLOSING_CONTAINER,
             CLOSE, FULL, PROBLEM_DETECTED, RESTORE,
-            SLEEP, AWAKING
+            SLEEP, EMPTING_CONTAINER
 
         } state;
+        //stato che aveva la macchina prima di andare in stato di sleep
+        enum{
+            PREV_AWAKE, PREV_FULL, PREV_PROBLEM
+        } preSleep;
 
     Led* greenLed;
     Led* redLed;
     Button* closeButton;
     Button* openButton;
 
-    Sonar* Sonar;
-    Pir* Pir;
+    Sonar* sSonar;
+    Pir* sPir;
     SensorTemp* sTemperature;
     ServoMotor* containerDoor; 
+    LCD* sLCD;
 };
 
 #endif
