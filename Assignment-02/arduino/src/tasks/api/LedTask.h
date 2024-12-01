@@ -1,13 +1,14 @@
-#ifndef __DETECTOR_TASK__
-#define __DETECTOR_TAST__
+#ifndef __LEDTASK__
+#define __LEDTASK__
 
+
+#include <Arduino.h>
 #include "Task.h"
 #include "SWDSPlant.h"
-
-class DetectorTask: public Task{
-
+ 
+class LedTask: public Task{
     public:
-    DetectorTask(SWDSPlant* machine);
+    LedTask(SWDSPlant* machine);
     void tick();
     private:
     SWDSPlant* machine;
@@ -15,11 +16,11 @@ class DetectorTask: public Task{
       long elapsedTimeInState();
       void logOnce(const String& msg);
 
-  enum { AWAKE, SLEEP, FULL};
+  enum { NORMAL, PROBLEM};
     int currentState;
   long stateTimestamp;
   bool justEntered;
-
 };
+
 
 #endif

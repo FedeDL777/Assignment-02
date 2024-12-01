@@ -1,57 +1,72 @@
-#ifndef __TASK__ 
+#ifndef __TASK__
 #define __TASK__
 
-class Task
-{
-private:
-    long period;
-    bool active;
-    bool periodic;
-    bool completed;
-    long timeElapsed;
-public:
-    Task();
-    void setUp(int P){
-        period = P;
-        active = true;
-        completed = false;
-        timeElapsed = 0;
-        period = true;
-    }
-    void setUp(){
-        period = 0;
-        active = true;
-        completed = false;
-        timeElapsed = 0;
-        period = false;
-    }
-    virtual void tick() = 0;
 
-    bool updateAndCheckTime(int basePeriod) {
+class Task {
+
+public:
+  Task(){
+    active = false;
+  }
+
+  /* periodic */
+  virtual void init(int period){
+    myPeriod = period;
+    periodic = true;  
+    active = true;
+    timeElapsed = 0;
+  }
+
+  /* aperiodic */
+  virtual void init(){
+    timeElapsed = 0;
+    periodic = false;
+    active = true;
+    completed = false;
+  }
+
+  virtual void tick() = 0;
+
+  bool updateAndCheckTime(int basePeriod){
     timeElapsed += basePeriod;
-    if (timeElapsed >= period) {
-        timeElapsed = 0; // reset relativo per migliorare precisione
-        return true;
+    if (timeElapsed >= myPeriod){
+      timeElapsed = 0;
+      return true;
+    } else {
+      return false; 
     }
-    return false;
-    }
-    void setComplete(){
-        completed = true;
-    }
-    bool isCompleted(){
-        return completed;
-    }
-    bool isPeriodic(){
-        return periodic;
-    }
-    void setActive(){
-        active = (active =! true);
-    }
-        void setActive(bool set){
-        active = set;
-    }
+  }
+
+  void setCompleted(){
+    completed = true;
+    active = false;
+  }
+
+  bool isCompleted(){
+    return completed;
+  }
+
+  bool isPeriodic(){
+    return periodic;
+  }
+
+  bool isActive(){
+    return active;
+  }
+
+  virtual void setActive(bool active){
+    timeElapsed = 0;
+    this->active = active;
+  }
+  
+private:
+
+  int myPeriod;
+  int timeElapsed;
+  bool active;
+  bool periodic;
+  bool completed;
 
 };
-
 
 #endif
