@@ -48,10 +48,17 @@ public:
     void checkUserPir();
     void checkDistance();
     void checkTemperature();
+    void openServo();
+    void closeServo();
+    void normalLed();
+    void problemLed();
+
 
     bool getUserPresence();
     double getDistance();
     double getTemperature();
+
+    
     private:
         double curTemperature;
         double curDistance;
@@ -70,14 +77,14 @@ public:
 
     Led* greenLed;
     Led* redLed;
-    Button* closeButton;
-    Button* openButton;
 
+    ServoMotor* mServo;
+    LCD* sLCD;
     Sonar* sSonar;
     Pir* sPir;
     SensorTemp* sTemperature;
     ServoMotor* containerDoor; 
-    LCD* sLCD;
+    
 };
 
 #endif

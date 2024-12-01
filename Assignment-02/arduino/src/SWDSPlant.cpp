@@ -3,7 +3,7 @@
 
 
 SWDSPlant::SWDSPlant() : greenLed(nullptr), redLed(nullptr), 
-                         closeButton(nullptr), openButton(nullptr), 
+                          
                          sSonar(nullptr), sPir(nullptr), 
                          sTemperature(nullptr), containerDoor(nullptr) 
                          {
@@ -15,10 +15,6 @@ void SWDSPlant::init() {
     sLCD = new LCD();
     greenLed = new Led(GREEN_LED);
     redLed = new Led(RED_LED);
-
-    // Inizializzazione dei Button
-    closeButton = new Button(BUTTON_CLOSE);
-    openButton = new Button(BUTTON_OPEN);
 
     // Inizializzazione del Sonar
     sSonar = new Sonar(SONAR_ECHO, SONAR_TRIG, 10000);
@@ -36,11 +32,14 @@ void SWDSPlant::init() {
     this->sPir->calibrate();
     state = AWAKE;
     preSleep = PREV_AWAKE;
+    this->sLCD->setup();
+    this->sLCD->turnOn();
 }
 
 
 void SWDSPlant::awake()
 {
+    this->sLCD->displayAwake();
     state = AWAKE;
 }
 
@@ -60,6 +59,7 @@ void SWDSPlant::converterForAwaking(){
 }
 void SWDSPlant::awaking()
 {
+    this->sLCD->turnOn();
     converterForAwaking();
 }
 void SWDSPlant::converterForSleep(){
@@ -76,47 +76,57 @@ void SWDSPlant::converterForSleep(){
 
 void SWDSPlant::sleep()
 {
+    this->sLCD->turnOff();
     this->converterForSleep();
     state = SLEEP;
 }
 
 void SWDSPlant::openContainer()
 {
+    this->sLCD->displayOpeningContainer();
     state = OPENING_CONTAINER;
 }
 
 void SWDSPlant::opened()
 {
+    this->sLCD->displayOpen();
     state = OPEN;
 }
 
 void SWDSPlant::closeContainer()
 {
+    this->sLCD->displayClosingContainer();
     state = CLOSING_CONTAINER;
 }
 
+
 void SWDSPlant::closed()
 {
+    this->sLCD->displayClose();
     state = CLOSE;
 }
 
 void SWDSPlant::full()
 {
+    this->sLCD->displayFull();
     state = FULL;
 }
 
 void SWDSPlant::problemDetected()
 {
+    this->sLCD->displayProblemDetected();
     state = PROBLEM_DETECTED;
 }
 
 void SWDSPlant::emptingContainer()
 {
+    this->sLCD->displayEmptingContainer();
     state = EMPTING_CONTAINER;
 }
 
 void SWDSPlant::restore()
 {
+    this->sLCD->displayRestore();
     state = RESTORE;
 }
 
@@ -222,4 +232,24 @@ double SWDSPlant::getDistance()
 double SWDSPlant::getTemperature()
 {
     return curTemperature;
+}
+
+void SWDSPlant::openServo(){
+    mServo->on();
+    mServo->setPosition(90);
+}
+
+void SWDSPlant::closeServo(){
+    mServo->setPosition(0);
+}
+void SWDSPlant::normalLed()
+{
+    greenLed->switchOn();
+    redLed->switchOff();
+}
+
+void SWDSPlant::problemLed()
+{
+    greenLed->switchOff();
+    redLed->switchOn();
 }
