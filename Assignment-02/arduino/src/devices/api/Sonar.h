@@ -3,7 +3,7 @@
 
 class Sonar{
     public:
-        Sonar(int echoPin, int trigPin, float temperature);
+        Sonar(int echoPin, int trigPin);
         float getDistance();
         void setTemperature(float temp);
         

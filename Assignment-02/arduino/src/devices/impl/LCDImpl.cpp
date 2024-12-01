@@ -6,7 +6,7 @@
 
 LCD::LCD()
 {
-    pLcd = new  LiquidCrystal_I2C(0x27,20,4);
+    pLcd = new LiquidCrystal_I2C(0x27,20,4);
 }
 void LCD::setup()
 {
@@ -25,6 +25,7 @@ void LCD::turnOn()
 void LCD::turnOff()
 {
     pLcd->noDisplay();
+    pLcd->noBacklight();
 }
 
 void LCD::initCursor()

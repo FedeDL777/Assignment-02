@@ -17,16 +17,16 @@ void SWDSPlant::init() {
     redLed = new Led(RED_LED);
 
     // Inizializzazione del Sonar
-    sSonar = new Sonar(SONAR_ECHO, SONAR_TRIG, 10000);
+    sSonar = new Sonar(SONAR_ECHO, SONAR_TRIG);
 
     // Inizializzazione del Pir
-    sPir = new Pir(PIR_);
+    sPir = new Pir(PIR_PIN);
 
     // Inizializzazione del sensore di temperatura
     sTemperature = new SensorTemp(TEMP_);
 
     // Inizializzazione del servo motore
-    containerDoor = new ServoMotor(SERVO_PIN);
+    containerDoor = new ServoMotor(SERVO_MOTOR);
 
     //logger
     this->sPir->calibrate();
@@ -143,20 +143,22 @@ bool SWDSPlant::preSleepAwake()
 {
     return preSleep == PREV_AWAKE;
 }
-bool SWDSPlant::isAwake()
+void SWDSPlant::setPreSleepFull()
 {
-    return state == AWAKE;
+    preSleep = PREV_FULL;
+}
+void SWDSPlant::setPreSleepProblem()
+{
+    preSleep = PREV_PROBLEM;
+}
+void SWDSPlant::setPreSleepAwake()
+{
+    preSleep = PREV_AWAKE;
 }
 bool SWDSPlant::isAwake()
 {
     return state == AWAKE;
 }
-
-bool SWDSPlant::isAwake()
-{
-    return state == AWAKE;
-}
-
 bool SWDSPlant::isFull()
 {
     return state == FULL;

@@ -32,6 +32,9 @@ public:
     bool preSleepFull();
     bool preSleepProblem();
     bool preSleepAwake();
+    void setPreSleepFull();
+    void setPreSleepProblem();
+    void setPreSleepAwake();
 
     bool isAwake();
     bool isFull();

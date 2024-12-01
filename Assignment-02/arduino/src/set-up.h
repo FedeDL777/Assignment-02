@@ -2,13 +2,15 @@
 #define __SETUP__
 
 
-#define PIR_ 2
+#define PIR_PIN 2
 #define BUTTON_OPEN 4
 #define BUTTON_CLOSE 5
 #define SERVO_MOTOR 6
+//green Wire
 #define SONAR_ECHO 7
+//yellowWire
 #define SONAR_TRIG 8
-#define SERVO_PIN 9
+
 #define GREEN_LED 10
 #define RED_LED 11
 #define TEMP_ A0
