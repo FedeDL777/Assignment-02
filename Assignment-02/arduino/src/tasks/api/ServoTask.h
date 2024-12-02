@@ -4,6 +4,7 @@
 #include "Task.h"
 #include "SWDSystem.h"
 
+
 class ServoTask: public Task{
     public: 
     ServoTask(SWDSystem* machine);
@@ -19,7 +20,7 @@ private:
     void logOnce(const String& msg);
 
   enum { AWAKE, SLEEP, OPENING_CONTAINER, OPEN,
-            CLOSING_CONTAINER, CLOSE, PROBLEM};
+            CLOSING_CONTAINER, CLOSE, PROBLEM, RESTORED};
     int currentState;
   long stateTimestamp;
   bool justEntered;

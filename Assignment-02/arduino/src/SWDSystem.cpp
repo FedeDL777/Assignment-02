@@ -2,11 +2,7 @@
 #include "set-up.h"
 
 
-SWDSystem::SWDSystem() : greenLed(nullptr), redLed(nullptr), 
-                          
-                         sSonar(nullptr), sPir(nullptr), 
-                         sTemperature(nullptr), containerDoor(nullptr) 
-                         {
+SWDSystem::SWDSystem() {
                             
                          }
 
@@ -33,7 +29,7 @@ void SWDSystem::init() {
     state = AWAKE;
     preSleep = PREV_AWAKE;
     this->sLCD->setup();
-    this->sLCD->turnOn();
+    //this->sLCD->turnOn();
 }
 
 
@@ -237,12 +233,12 @@ double SWDSystem::getTemperature()
 }
 
 void SWDSystem::openServo(){
-    mServo->on();
-    mServo->setPosition(90);
+    containerDoor->on();
+    containerDoor->setPosition(90);
 }
 
 void SWDSystem::closeServo(){
-    mServo->setPosition(0);
+    containerDoor->setPosition(0);
 }
 void SWDSystem::normalLed()
 {

@@ -5,25 +5,27 @@
 LedTask::LedTask(SWDSystem *Machine): machine(Machine)
 {
     machine->normalLed();
+    setState(NORMAL);
 }
 
 void LedTask::tick()
 {
-switch (currentState)
-{
+switch (currentState){
 case NORMAL:
-if(machine->asProblem() || machine->isFull()){
-    machine->problemLed();
-    setState(PROBLEM);
-}
+        logOnce(F("[LT] Normal"));
+        if(machine->asProblem() || machine->isFull()){
+            machine->problemLed();
+            setState(PROBLEM);
+        }
 
     break;
 
 case PROBLEM:
-if(!machine->asProblem() && !machine->isFull() && !machine->isInSleep()){
-    machine->normalLed();
-    setState(NORMAL);
-}
+        logOnce(F("[LT] Problem"));
+        if(!machine->asProblem() && !machine->isFull() && !machine->isInSleep()){
+            machine->normalLed();
+            setState(NORMAL);
+        }
     break;
 }
 }
@@ -43,7 +45,7 @@ long LedTask::elapsedTimeInState()
 void LedTask::logOnce(const String &msg)
 {
     if (justEntered){
-      //Logger.log(msg);
+      Logger.log(msg);
       justEntered = false;
     }
 }

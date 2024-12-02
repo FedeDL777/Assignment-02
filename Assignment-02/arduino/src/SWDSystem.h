@@ -81,12 +81,11 @@ public:
     Led* greenLed;
     Led* redLed;
 
-    ServoMotor* mServo;
+    ServoMotor* containerDoor;
     LCD* sLCD;
     Sonar* sSonar;
     Pir* sPir;
     SensorTemp* sTemperature;
-    ServoMotor* containerDoor; 
     
 };
 

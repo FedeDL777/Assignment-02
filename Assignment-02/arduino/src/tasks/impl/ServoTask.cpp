@@ -1,25 +1,30 @@
 #include "tasks/api/ServoTask.h"
 #include <Arduino.h>
 #include "core/Logger.h"
-
+#include "set-up.h"
 
 
 #define CONTAINER_OPENED 10000
+#define CONTAINER_CLOSING 4000
+#define RESTORE_TIME 4000
 
-ServoTask::ServoTask(SWDSPlant *Machine): machine(Machine), closeButton(nullptr), openButton(nullptr)
+ServoTask::ServoTask(SWDSystem *Machine): machine(Machine)
 {
-        // Inizializzazione dei Button
-    closeButton = new Button(BUTTON_CLOSE);
-    openButton = new Button(BUTTON_OPEN);
-
     setState(AWAKE);
+    openButton = new Button(BUTTON_OPEN);
+    closeButton = new Button(BUTTON_CLOSE);
 }
 
 void ServoTask::tick()
+
 {
     switch (currentState)
     {
     case AWAKE:
+        if(justEntered){
+            machine->awake();
+        }
+        logOnce(F("[ST] Awake"));
         if(machine->isInSleep()){
             setState(SLEEP);
         }
@@ -32,6 +37,7 @@ void ServoTask::tick()
 
 
     case OPENING_CONTAINER:
+        logOnce(F("[ST] Opening Container"));
         machine->opened();
         machine->openServo();
         setState(OPEN);
@@ -39,6 +45,7 @@ void ServoTask::tick()
 
 
     case OPEN:
+        logOnce(F("[ST] Open"));
     //chiusura per Problema
         if(asProblem()){
             setState(CLOSING_CONTAINER);
@@ -63,6 +70,7 @@ void ServoTask::tick()
 
     
     case CLOSING_CONTAINER:
+        logOnce(F("[ST] Closing Container"));
         if(asProblem()){
             setState(CLOSE);
         }
@@ -75,27 +83,36 @@ void ServoTask::tick()
 
 
     case CLOSE:
+        logOnce(F("[ST] Close"));
         if(asProblem()){
             setState(PROBLEM);
         }
-        else{
-            machine->awake();
+        else if(elapsedTimeInState() > CONTAINER_CLOSING){
+            machine->awake();//
             setState(AWAKE);
         }
         break;
 
 
     case PROBLEM:
+        logOnce(F("[ST] Problem"));
         if(machine->isInSleep()){
             setState(SLEEP);
         }
         else if(!asProblem()){
-            setState(AWAKE);
+            setState(RESTORED);
         }
         break;
 
-        
+    case RESTORED:
+        logOnce(F("[ST] Restored"));
+        if(elapsedTimeInState() > CONTAINER_CLOSING){
+            machine->awake();//
+            setState(AWAKE);
+        }
+        break;    
     case SLEEP:
+        logOnce(F("[ST] Sleep"));
         if(!machine->isInSleep() && (machine->preSleepFull() || machine->preSleepProblem())){
             setState(PROBLEM);
         }
@@ -124,7 +141,7 @@ long ServoTask::elapsedTimeInState()
 void ServoTask::logOnce(const String &msg)
 {
         if (justEntered){
-      //Logger.log(msg);
+      Logger.log(msg);
       justEntered = false;
     }
 }

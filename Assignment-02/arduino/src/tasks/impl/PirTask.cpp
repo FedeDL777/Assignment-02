@@ -6,6 +6,7 @@
 
 PirTask::PirTask(SWDSystem *Machine): machine(Machine)
 {
+    setState(AWAKE);
 }
 
 void PirTask::tick()
@@ -14,18 +15,20 @@ void PirTask::tick()
     switch (currentState)
     {
     case AWAKE:
+        logOnce(F("[PT] Awake"));
         if(machine->getUserPresence()){
             setState(AWAKE);
         }
         if(elapsedTimeInState() > MAX_INACTIVITY_TIME){
-            machine->sleep();
             setState(SLEEP);
+            machine->sleep();
         }
         if(!machine->isAwake()){
             checkState();
         }
         break;
     case FULL:
+        logOnce(F("[PT] Full"));
         if(machine->getUserPresence()){
             setState(FULL);
         }
@@ -38,6 +41,7 @@ void PirTask::tick()
         }
         break;
     case PROBLEM:
+        logOnce(F("[PT] Problem"));
             if(machine->getUserPresence()){
             setState(PROBLEM);
         }
@@ -50,6 +54,8 @@ void PirTask::tick()
         }
         break;
     case SLEEP:
+        logOnce(F("[PT] Sleep"));
+        machine->checkUserPir();
         if(machine->getUserPresence()){
             machine->awaking();
             checkPreSleepState();
@@ -106,7 +112,7 @@ long PirTask::elapsedTimeInState()
 void PirTask::logOnce(const String &msg)
 {
             if (justEntered){
-      //Logger.log(msg);
+      Logger.log(msg);
       justEntered = false;
     }
 }

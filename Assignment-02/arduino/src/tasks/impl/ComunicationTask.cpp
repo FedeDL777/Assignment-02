@@ -12,7 +12,7 @@
 
   ComunicationTask::ComunicationTask(SWDSystem *machine): machine(machine)
   {
-    setState(RECIVING_DATA);
+    setState(WAIT);
   }
  
 
@@ -20,7 +20,7 @@
   {
     switch (currentState)
     {
-    case RECIVING_DATA:
+    case WAIT:
         if(elapsedTimeInState() > SENDING_DATA_TIMEOUT){
             setState(SENDING_DATA);
         }
@@ -44,7 +44,7 @@
         }
 
         sendStatus(statusMessage);
-        setState(RECIVING_DATA);
+        setState(WAIT);
         break;
     }
   }

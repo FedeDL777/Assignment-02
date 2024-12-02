@@ -1,9 +1,10 @@
 #include "tasks/api/TempTask.h"
 #include <Arduino.h>
 #include "core/Logger.h"
+#include "core/MsgService.h"
 
 #define TIME_IN_PROBLEM_DETECTED 6000
-#define MAX_TEMP 32
+#define MAX_TEMP 40
 #define CHECKTEMP 1000
 
 TempTask::TempTask(SWDSystem *Machine):machine(Machine)
@@ -12,12 +13,14 @@ TempTask::TempTask(SWDSystem *Machine):machine(Machine)
     tempSamples=0;
     avgTemp = 0;
     checkTime = millis();
+    setState(NORMAL);
 }
 
 void TempTask::tick()
 {
+    Serial.println("cur Temperature: " + String(currentTemperature));
     machine->checkTemperature();
-    avgTemp =+ machine->getTemperature();
+    avgTemp += machine->getTemperature();
     tempSamples++;
     if(elapsedTimeCheckTemp() > CHECKTEMP){
         currentTemperature = avgTemp / tempSamples;
@@ -28,11 +31,13 @@ void TempTask::tick()
     switch (currentState)
     {
     case NORMAL:
+    logOnce(F("[TT] Normal"));
     if(currentTemperature > MAX_TEMP){
         setState(PROBLEM_DETECTED);
     }
         break;
     case PROBLEM_DETECTED:
+    logOnce(F("[TT] PROBLEM DETECTED"));
     if(currentTemperature < MAX_TEMP){
         setState(NORMAL);
     }
@@ -48,7 +53,9 @@ void TempTask::tick()
     }
         break;
     case PROBLEM:
-        if(!machine->asProblem() && !machine->isInSleep()){
+        logOnce(F("[TT] Problem"));
+        if(checkRestoreButtonPressed() && !machine->isInSleep()){
+            machine->restore();
             setState(NORMAL);
         }  
         break;
@@ -76,7 +83,24 @@ long TempTask::elapsedTimeCheckTemp()
 void TempTask::logOnce(const String &msg)
 {
         if (justEntered){
-      //Logger.log(msg);
+      Logger.log(msg);
       justEntered = false;
     }
+}
+
+bool TempTask::checkRestoreButtonPressed()
+{
+    bool pressed = false;
+    if(MsgService.isMsgAvailable()){
+        Msg* msg = MsgService.receiveMsg();
+        if(msg != NULL){
+            Logger.log("Received message: " + msg->getContent());
+                if(msg->getContent() == "RESTORE"){
+            pressed = true;
+            }
+            delete msg;
+        }
+
+    }
+    return pressed;
 }

@@ -14,7 +14,7 @@ class DetectorTask: public Task{
       void setState(int newState);
       long elapsedTimeInState();
       void logOnce(const String& msg);
-
+      bool checkFullButtonPressed();
   enum { AWAKE, SLEEP, FULL};
     int currentState;
   long stateTimestamp;

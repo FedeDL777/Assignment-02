@@ -16,7 +16,7 @@ class TempTask: public Task{
       long elapsedTimeInState();
       long elapsedTimeCheckTemp();
       void logOnce(const String &msg);
-
+      bool checkRestoreButtonPressed();
       enum
       {
           NORMAL,

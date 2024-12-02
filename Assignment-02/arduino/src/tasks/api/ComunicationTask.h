@@ -23,7 +23,7 @@ private:
 
   double getWasteLevel();
   double getTemperature();     
-    enum State { RECIVING_DATA, SENDING_DATA };  
+    enum State { WAIT, SENDING_DATA };  
 
     int currentState;
   long stateTimestamp;      
