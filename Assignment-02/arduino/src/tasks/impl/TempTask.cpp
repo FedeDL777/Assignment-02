@@ -16,6 +16,7 @@ TempTask::TempTask(SWDSPlant *Machine):machine(Machine)
 
 void TempTask::tick()
 {
+    machine->checkTemperature();
     avgTemp =+ machine->getTemperature();
     tempSamples++;
     if(elapsedTimeCheckTemp() > CHECKTEMP){

@@ -10,6 +10,7 @@ PirTask::PirTask(SWDSPlant *Machine): machine(Machine)
 
 void PirTask::tick()
 {
+    machine->checkUserPir();
     switch (currentState)
     {
     case AWAKE:

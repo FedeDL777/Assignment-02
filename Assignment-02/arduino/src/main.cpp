@@ -40,7 +40,7 @@ void setup(){
   pTempTask->init(100);
   //
 
-//  sched.addTask(pServoTask);
+  sched.addTask(pServoTask);
 //  sched.addTask(pLedTask);
   sched.addTask(pPir);
 

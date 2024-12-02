@@ -12,6 +12,7 @@ DetectorTask::DetectorTask(SWDSPlant *Machine): machine(Machine)
 
 void DetectorTask::tick()
 {
+    machine->checkDistance();
     switch (currentState)
     {
     case AWAKE:
