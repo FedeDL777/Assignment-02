@@ -2,15 +2,15 @@
 #define __DETECTOR_TAST__
 
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 class DetectorTask: public Task{
 
     public:
-    DetectorTask(SWDSPlant* machine);
+    DetectorTask(SWDSystem* machine);
     void tick();
     private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
       void setState(int newState);
       long elapsedTimeInState();
       void logOnce(const String& msg);

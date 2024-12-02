@@ -2,16 +2,16 @@
 #define __LCDTask__
 
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 class LCDTask: public Task{
 
     public:
-    LCDTask(SWDSPlant* machine);
+    LCDTask(SWDSystem* machine);
     void tick();
     void init();
     private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
       void setState(int state);
       long elapsedTimeInState();
       void logOnce(const String& msg);

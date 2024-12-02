@@ -5,7 +5,7 @@
 #include "core/MsgService.h"
 #include "core/Logger.h"
 
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 #include "tasks/api/DetectorTask.h"
 #include "tasks/api/ServoTask.h"
@@ -15,13 +15,13 @@
 
 Scheduler sched;
 
-SWDSPlant* machine;
+SWDSystem* machine;
 
 void setup(){
   MsgService.init();
   sched.init(100);
 
-  machine = new SWDSPlant();
+  machine = new SWDSystem();
   machine->init();
 
   Task* pDetectorTask = new DetectorTask(machine);

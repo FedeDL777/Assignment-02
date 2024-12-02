@@ -1,5 +1,5 @@
-#ifndef __SWDS_PLANT__
-#define __SWDS_PLANT__
+#ifndef __SWDSYSTEM__
+#define __SWDSYSTEM__
 
 #include <Arduino.h>
 #include "devices/api/Button.h"
@@ -10,9 +10,9 @@
 #include "devices/api/ServoMotor.h"
 #include "devices/api/Sonar.h"
 
-class SWDSPlant {
+class SWDSystem {
 public:
-    SWDSPlant();
+    SWDSystem();
     void init();
     
     void awake();

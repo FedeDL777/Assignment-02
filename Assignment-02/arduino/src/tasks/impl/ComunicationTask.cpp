@@ -10,7 +10,7 @@
 #define MINDIST 0.02
  
 
-  ComunicationTask::ComunicationTask(SWDSPlant *machine): machine(machine)
+  ComunicationTask::ComunicationTask(SWDSystem *machine): machine(machine)
   {
     setState(RECIVING_DATA);
   }

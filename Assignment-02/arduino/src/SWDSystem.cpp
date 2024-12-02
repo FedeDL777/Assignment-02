@@ -1,8 +1,8 @@
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 #include "set-up.h"
 
 
-SWDSPlant::SWDSPlant() : greenLed(nullptr), redLed(nullptr), 
+SWDSystem::SWDSystem() : greenLed(nullptr), redLed(nullptr), 
                           
                          sSonar(nullptr), sPir(nullptr), 
                          sTemperature(nullptr), containerDoor(nullptr) 
@@ -10,7 +10,7 @@ SWDSPlant::SWDSPlant() : greenLed(nullptr), redLed(nullptr),
                             
                          }
 
-void SWDSPlant::init() {
+void SWDSystem::init() {
     // Inizializzazione dei Led
     sLCD = new LCD();
     greenLed = new Led(GREEN_LED);
@@ -37,13 +37,13 @@ void SWDSPlant::init() {
 }
 
 
-void SWDSPlant::awake()
+void SWDSystem::awake()
 {
     this->sLCD->displayAwake();
     state = AWAKE;
 }
 
-void SWDSPlant::converterForAwaking(){
+void SWDSystem::converterForAwaking(){
     switch (preSleep)
     {
     case PREV_FULL:
@@ -57,12 +57,12 @@ void SWDSPlant::converterForAwaking(){
         break;
     }
 }
-void SWDSPlant::awaking()
+void SWDSystem::awaking()
 {
     this->sLCD->turnOn();
     converterForAwaking();
 }
-void SWDSPlant::converterForSleep(){
+void SWDSystem::converterForSleep(){
     if(this->asProblem()){
         preSleep = PREV_PROBLEM;
     }
@@ -74,183 +74,183 @@ void SWDSPlant::converterForSleep(){
     }
 }
 
-void SWDSPlant::sleep()
+void SWDSystem::sleep()
 {
     this->sLCD->turnOff();
     this->converterForSleep();
     state = SLEEP;
 }
 
-void SWDSPlant::openContainer()
+void SWDSystem::openContainer()
 {
     this->sLCD->displayOpeningContainer();
     state = OPENING_CONTAINER;
 }
 
-void SWDSPlant::opened()
+void SWDSystem::opened()
 {
     this->sLCD->displayOpen();
     state = OPEN;
 }
 
-void SWDSPlant::closeContainer()
+void SWDSystem::closeContainer()
 {
     this->sLCD->displayClosingContainer();
     state = CLOSING_CONTAINER;
 }
 
 
-void SWDSPlant::closed()
+void SWDSystem::closed()
 {
     this->sLCD->displayClose();
     state = CLOSE;
 }
 
-void SWDSPlant::full()
+void SWDSystem::full()
 {
     this->sLCD->displayFull();
     state = FULL;
 }
 
-void SWDSPlant::problemDetected()
+void SWDSystem::problemDetected()
 {
     this->sLCD->displayProblemDetected();
     state = PROBLEM_DETECTED;
 }
 
-void SWDSPlant::emptingContainer()
+void SWDSystem::emptingContainer()
 {
     this->sLCD->displayEmptingContainer();
     state = EMPTING_CONTAINER;
 }
 
-void SWDSPlant::restore()
+void SWDSystem::restore()
 {
     this->sLCD->displayRestore();
     state = RESTORE;
 }
 
 
-bool SWDSPlant::preSleepFull()
+bool SWDSystem::preSleepFull()
 {
     return preSleep == PREV_FULL;
 }
-bool SWDSPlant::preSleepProblem()
+bool SWDSystem::preSleepProblem()
 {
     return preSleep == PREV_PROBLEM;
 }
-bool SWDSPlant::preSleepAwake()
+bool SWDSystem::preSleepAwake()
 {
     return preSleep == PREV_AWAKE;
 }
-void SWDSPlant::setPreSleepFull()
+void SWDSystem::setPreSleepFull()
 {
     preSleep = PREV_FULL;
 }
-void SWDSPlant::setPreSleepProblem()
+void SWDSystem::setPreSleepProblem()
 {
     preSleep = PREV_PROBLEM;
 }
-void SWDSPlant::setPreSleepAwake()
+void SWDSystem::setPreSleepAwake()
 {
     preSleep = PREV_AWAKE;
 }
-bool SWDSPlant::isAwake()
+bool SWDSystem::isAwake()
 {
     return state == AWAKE;
 }
-bool SWDSPlant::isFull()
+bool SWDSystem::isFull()
 {
     return state == FULL;
 }
 
-bool SWDSPlant::asProblem()
+bool SWDSystem::asProblem()
 {
     return state == PROBLEM_DETECTED;
 }
 
-bool SWDSPlant::isInSleep()
+bool SWDSystem::isInSleep()
 {
     return state == SLEEP;
 }
 
-bool SWDSPlant::isOpening()
+bool SWDSystem::isOpening()
 {
     return state == OPENING_CONTAINER;
 }
 
-bool SWDSPlant::isOpen()
+bool SWDSystem::isOpen()
 {
     return state == OPEN;
 }
 
-bool SWDSPlant::isClosing()
+bool SWDSystem::isClosing()
 {
     return state == CLOSING_CONTAINER;
 }
 
-bool SWDSPlant::isClose()
+bool SWDSystem::isClose()
 {
     return state == CLOSE;
 }
 
-bool SWDSPlant::isEmpting()
+bool SWDSystem::isEmpting()
 {
     return state == EMPTING_CONTAINER;
 }
 
-bool SWDSPlant::isRestore()
+bool SWDSystem::isRestore()
 {
     return state == RESTORE;
 }
 
-void SWDSPlant::checkUserPir()
+void SWDSystem::checkUserPir()
 {
     this->sPir->sync();
     userDetected = this->sPir->isDetected();
 }
 
-void SWDSPlant::checkDistance()
+void SWDSystem::checkDistance()
 {
     this->sSonar->setTemperature(this->sTemperature->getTemperature());
     curDistance = this->sSonar->getDistance();
 }
 
-void SWDSPlant::checkTemperature()
+void SWDSystem::checkTemperature()
 {
     this->curTemperature = this->sTemperature->getTemperature();
 }
 
-bool SWDSPlant::getUserPresence()
+bool SWDSystem::getUserPresence()
 {
     return userDetected;
 }
 
-double SWDSPlant::getDistance()
+double SWDSystem::getDistance()
 {
     return curDistance;
 }
 
-double SWDSPlant::getTemperature()
+double SWDSystem::getTemperature()
 {
     return curTemperature;
 }
 
-void SWDSPlant::openServo(){
+void SWDSystem::openServo(){
     mServo->on();
     mServo->setPosition(90);
 }
 
-void SWDSPlant::closeServo(){
+void SWDSystem::closeServo(){
     mServo->setPosition(0);
 }
-void SWDSPlant::normalLed()
+void SWDSystem::normalLed()
 {
     greenLed->switchOn();
     redLed->switchOff();
 }
 
-void SWDSPlant::problemLed()
+void SWDSystem::problemLed()
 {
     greenLed->switchOff();
     redLed->switchOn();

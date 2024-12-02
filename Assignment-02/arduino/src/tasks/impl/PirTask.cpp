@@ -4,7 +4,7 @@
 
 #define MAX_INACTIVITY_TIME 10000
 
-PirTask::PirTask(SWDSPlant *Machine): machine(Machine)
+PirTask::PirTask(SWDSystem *Machine): machine(Machine)
 {
 }
 

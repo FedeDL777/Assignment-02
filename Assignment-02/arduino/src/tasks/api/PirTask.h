@@ -3,16 +3,16 @@
 
 #include <Arduino.h>
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 class PirTask: public Task{
 
     public:
-    PirTask(SWDSPlant* machine);
+    PirTask(SWDSystem* machine);
     void tick();
 
 private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
       void setState(int state);
       long elapsedTimeInState();
       void logOnce(const String& msg);

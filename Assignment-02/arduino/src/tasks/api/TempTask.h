@@ -4,14 +4,14 @@
 
 #include <Arduino.h>
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
  
 class TempTask: public Task{
     public:
-    TempTask(SWDSPlant* machine);
+    TempTask(SWDSystem* machine);
     void tick();
     private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
       void setState(int newState);
       long elapsedTimeInState();
       long elapsedTimeCheckTemp();

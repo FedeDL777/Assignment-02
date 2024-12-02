@@ -4,14 +4,14 @@
 
 #include <Arduino.h>
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
  
 class LedTask: public Task{
     public:
-    LedTask(SWDSPlant* machine);
+    LedTask(SWDSystem* machine);
     void tick();
     private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
       void setState(int newState);
       long elapsedTimeInState();
       void logOnce(const String& msg);

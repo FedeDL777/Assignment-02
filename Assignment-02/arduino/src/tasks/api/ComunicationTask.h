@@ -2,12 +2,12 @@
 #define COMUNICATIONTASK_H
 
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 
 class ComunicationTask: public Task {
 public:
-    ComunicationTask(SWDSPlant* machine);
+    ComunicationTask(SWDSystem* machine);
      void tick();
 
 private:
@@ -28,7 +28,7 @@ private:
     int currentState;
   long stateTimestamp;      
   bool justEntered;          
-  SWDSPlant* machine;
+  SWDSystem* machine;
 };
 
 

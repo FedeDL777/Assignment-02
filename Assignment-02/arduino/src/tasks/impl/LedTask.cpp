@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "core/Logger.h"
 
-LedTask::LedTask(SWDSPlant *Machine): machine(Machine)
+LedTask::LedTask(SWDSystem *Machine): machine(Machine)
 {
     machine->normalLed();
 }

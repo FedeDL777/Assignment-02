@@ -5,7 +5,7 @@
 //distanza minima a cui il contenitore non viene considerato pieno
 #define MIN_DIST 0.04
 
-DetectorTask::DetectorTask(SWDSPlant *Machine): machine(Machine)
+DetectorTask::DetectorTask(SWDSystem *Machine): machine(Machine)
 {
     setState(AWAKE);
 }

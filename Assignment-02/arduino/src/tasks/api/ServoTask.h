@@ -2,17 +2,17 @@
 #define __SERVO_TASK__
 
 #include "Task.h"
-#include "SWDSPlant.h"
+#include "SWDSystem.h"
 
 class ServoTask: public Task{
     public: 
-    ServoTask(SWDSPlant* sPlant);
+    ServoTask(SWDSystem* machine);
     void tick();
 
 
 
 private:
-    SWDSPlant* machine;
+    SWDSystem* machine;
     bool asProblem();
     void setState(int newState);
     long elapsedTimeInState();

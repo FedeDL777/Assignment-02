@@ -6,7 +6,7 @@
 #define MAX_TEMP 32
 #define CHECKTEMP 1000
 
-TempTask::TempTask(SWDSPlant *Machine):machine(Machine)
+TempTask::TempTask(SWDSystem *Machine):machine(Machine)
 {
     currentTemperature = 20;
     tempSamples=0;
