@@ -16,7 +16,8 @@ public class SWDSystemDashboard {
 			view = new SWDSystemView();
 			log = new LogView();
 		});
-		String portName = "/dev/cu.usbmodem1442401";
+		//String portName = "/dev/cu.usbmodem1442401";
+		String portName = "COM7";
 		SWDSystemController contr = new SWDSystemController(portName,view,log);
 		view.registerController(contr);
 		SwingUtilities.invokeLater(() -> {

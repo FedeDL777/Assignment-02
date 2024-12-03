@@ -37,12 +37,12 @@ void PirTask::tick()
         if(machine->getUserPresence()){
             setState(FULL);
         }
+        if(!machine->isFull()){
+            checkState();
+        }
         if(elapsedTimeInState() > MAX_INACTIVITY_TIME){
             machine->sleep();
             setState(SLEEP);
-        }
-        if(!machine->isFull()){
-            checkState();
         }
         break;
     case PROBLEM:
@@ -50,12 +50,12 @@ void PirTask::tick()
             if(machine->getUserPresence()){
             setState(PROBLEM);
         }
+        if(!machine->asProblem()){
+            checkState();
+        }
         if(elapsedTimeInState() > MAX_INACTIVITY_TIME){
             machine->sleep();
             setState(SLEEP);
-        }
-        if(!machine->asProblem()){
-            checkState();
         }
         break;
     case SLEEP:
@@ -71,6 +71,7 @@ void PirTask::tick()
         checkPreSleepState();
         break;
     case BLOCKED:
+        logOnce(F("[PT] Blocked"));
     checkState();
         break;
     }
