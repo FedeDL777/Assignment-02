@@ -31,6 +31,7 @@ void Scheduler::schedule(){
   timerFlag = false;
 
   for (int i = 0; i < nTasks; i++){
+    long time = millis();
     if (taskList[i]->isActive()){
       if (taskList[i]->isPeriodic()){
         if (taskList[i]->updateAndCheckTime(basePeriod)){
@@ -43,5 +44,10 @@ void Scheduler::schedule(){
         }
       }
     }
+    if(millis()-time > 100){
+          Serial.println("Time task n. " + String(i) + ": " + String(millis()-time));
+    }
+
+
   }
 }

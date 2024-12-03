@@ -44,6 +44,15 @@
         else if(machine->isOpen()){
             statusMessage = 4;
         }
+        else if(machine->isClose()){
+            statusMessage = 5;
+        }
+        else if(machine->isEmpting()){
+            statusMessage = 6;
+        }
+        else if(machine->isRestore()){
+            statusMessage = 7;
+        }
 
         sendStatus(statusMessage);
         setState(WAIT);

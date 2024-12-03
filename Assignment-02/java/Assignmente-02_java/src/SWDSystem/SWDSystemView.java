@@ -1,6 +1,7 @@
 package SWDSystem;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -53,18 +54,23 @@ class SWDSystemView extends JFrame implements ActionListener{
         fillPercentage.setPreferredSize(new Dimension(200, 15));
         infoLine.add(new JLabel("Fill Percentage: "));
         infoLine.add(fillPercentage);
+        infoLine.add(new JLabel("%"));
 
         mainPanel.add(infoLine);
         mainPanel.add(Box.createRigidArea(new Dimension(0,20)));
         mainPanel.setPreferredSize(new Dimension(200, 20));
+        mainPanel.setBackground(Color.LIGHT_GRAY);
 
         JPanel buttonPanel = new JPanel();
         restoreButton = new JButton("Restore Problems");
         restoreButton.setEnabled(false);
         restoreButton.addActionListener(this);
+        restoreButton.setBackground(Color.red);
         emptyButton = new JButton("Empty Container");
         emptyButton.setEnabled(false);
         emptyButton.addActionListener(this);
+        emptyButton.setBackground(Color.yellow);
+
 
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(restoreButton);
@@ -132,3 +138,6 @@ class SWDSystemView extends JFrame implements ActionListener{
 
     
 }
+/*
+ * 
+ */

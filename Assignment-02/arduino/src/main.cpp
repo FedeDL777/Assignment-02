@@ -43,12 +43,12 @@ void setup(){
   Task* pComunicationTask = new ComunicationTask(machine);
   pComunicationTask->init(100);
 
-  sched.addTask(pServoTask);
-  sched.addTask(pLedTask);
-  sched.addTask(pPir);
-  sched.addTask(pTempTask);
-  sched.addTask(pDetectorTask);
-  sched.addTask(pComunicationTask);
+  sched.addTask(pServoTask); //0
+  sched.addTask(pLedTask); //1
+  sched.addTask(pPir); //2
+  sched.addTask(pTempTask); //3
+  sched.addTask(pDetectorTask);  //4
+  sched.addTask(pComunicationTask); //5
 
 
 }

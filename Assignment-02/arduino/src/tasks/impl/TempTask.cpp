@@ -6,6 +6,7 @@
 #define TIME_IN_PROBLEM_DETECTED 6000
 #define MAX_TEMP 40
 #define CHECKTEMP 1000
+#define RESTORE_TIME 2000
 
 TempTask::TempTask(SWDSystem *Machine):machine(Machine)
 {
@@ -34,6 +35,11 @@ void TempTask::tick()
     logOnce(F("[TT] Normal"));
     if(currentTemperature > MAX_TEMP){
         setState(PROBLEM_DETECTED);
+    }
+    if(elapsedTimeInState() > RESTORE_TIME && machine->isRestore()){
+        machine->awake();
+        setState(NORMAL);
+
     }
         break;
     case PROBLEM_DETECTED:
@@ -92,6 +98,7 @@ bool TempTask::checkRestoreButtonPressed()
 {
     bool pressed = false;
     if(MsgService.isMsgAvailable()){
+        logOnce(F("[TT] Message available"));
         Msg* msg = MsgService.receiveMsg();
         if(msg != NULL){
             Logger.log("Received message: " + msg->getContent());

@@ -19,7 +19,8 @@ void LCD::setup()
 
 void LCD::turnOn()
 {
-      pLcd->display();
+    pLcd->backlight();
+    pLcd->display();
   pLcd->clear();
 }
 void LCD::turnOff()
@@ -37,6 +38,7 @@ void LCD::initCursor()
 
 void LCD::displayAwake()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("PRESS OPEN TO");
     pLcd->setCursor(1,2);
@@ -45,12 +47,14 @@ void LCD::displayAwake()
 
 void LCD::displayOpeningContainer()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("OPENING");
 }
 
 void LCD::displayOpen()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("PRESS CLOSE");
     pLcd->setCursor(1,2);
@@ -59,24 +63,28 @@ void LCD::displayOpen()
 
 void LCD::displayClosingContainer()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("CLOSING");
 }
 
 void LCD::displayClose()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("WASTE RECIVED");
 }
 
 void LCD::displayFull()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("CONTAINER FULL");
 }
 
 void LCD::displayEmptingContainer()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("EMPTYING THE");
     pLcd->setCursor(1,2);
@@ -85,6 +93,7 @@ void LCD::displayEmptingContainer()
 
 void LCD::displayProblemDetected()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("PROBLEM");
     pLcd->setCursor(1,2);
@@ -93,6 +102,7 @@ void LCD::displayProblemDetected()
 
 void LCD::displayRestore()
 {
+    this->turnOn();
     this->initCursor();
     pLcd->print("RESTORED");
 }

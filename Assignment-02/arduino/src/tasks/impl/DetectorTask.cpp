@@ -4,7 +4,8 @@
 #include "core/MsgService.h"
 
 //distanza minima a cui il contenitore non viene considerato pieno
-#define MIN_DIST 0.02
+#define MIN_DIST 0.03
+#define EMPTING_TIME 4000
 
 DetectorTask::DetectorTask(SWDSystem *Machine): machine(Machine)
 {
@@ -24,6 +25,9 @@ void DetectorTask::tick()
             machine->full();
             setState(FULL);
         }
+        else if(machine->isEmpting() && EMPTING_TIME < elapsedTimeInState()){
+            setState(SLEEP);
+        }
         else if(machine->isInSleep()){
             setState(SLEEP);
         }
@@ -42,8 +46,9 @@ void DetectorTask::tick()
         break;
     case SLEEP:
         logOnce(F("[DT] Sleep"));
+        /*
         if(!machine->isInSleep()){
-            if(machine->getDistance() < MIN_DIST && !machine->preSleepProblem()){
+            if(machine->getDistance() < MIN_DIST && !machine->asProblem()){
                 machine->full();
                 setState(FULL);
             }
@@ -51,7 +56,17 @@ void DetectorTask::tick()
                 setState(AWAKE);
             }
         }
-
+        */
+               if(!machine->isInSleep()){
+            if(machine->preSleepFull()){
+                Serial.println("PREV FULL");
+                machine->full();
+                setState(FULL);
+            }
+            else{
+                setState(AWAKE);
+            }
+        }
         break;
 
     }

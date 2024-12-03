@@ -8,9 +8,9 @@ SWDSystem::SWDSystem() {
 
 void SWDSystem::init() {
     // Inizializzazione dei Led
-    sLCD = new LCD();
-    greenLed = new Led(GREEN_LED);
-    redLed = new Led(RED_LED);
+    this->userConsole = new LCD();
+    this->greenLed = new Led(GREEN_LED);
+    this->redLed = new Led(RED_LED);
 
     // Inizializzazione del Sonar
     sSonar = new Sonar(SONAR_ECHO, SONAR_TRIG);
@@ -24,19 +24,21 @@ void SWDSystem::init() {
     // Inizializzazione del servo motore
     containerDoor = new ServoMotor(SERVO_MOTOR);
 
+    this->userConsole->setup();
+    this->userConsole->turnOn();
+    this->userConsole->displayAwake();
     //logger
     Logger.log("Calibrating sensors...");
     this->sPir->calibrate();
     state = AWAKE;
     preSleep = PREV_AWAKE;
-    this->sLCD->setup();
-    //this->sLCD->turnOn();
+
 }
 
 
 void SWDSystem::awake()
 {
-    this->sLCD->displayAwake();
+    this->userConsole->displayAwake();
     state = AWAKE;
 }
 
@@ -56,7 +58,7 @@ void SWDSystem::converterForAwaking(){
 }
 void SWDSystem::awaking()
 {
-    this->sLCD->turnOn();
+    this->userConsole->turnOn();
     converterForAwaking();
 }
 void SWDSystem::converterForSleep(){
@@ -73,57 +75,57 @@ void SWDSystem::converterForSleep(){
 
 void SWDSystem::sleep()
 {
-    this->sLCD->turnOff();
+    this->userConsole->turnOff();
     this->converterForSleep();
     state = SLEEP;
 }
 
 void SWDSystem::openContainer()
 {
-    this->sLCD->displayOpeningContainer();
+    this->userConsole->displayOpeningContainer();
     state = OPENING_CONTAINER;
 }
 
 void SWDSystem::opened()
 {
-    this->sLCD->displayOpen();
+    this->userConsole->displayOpen();
     state = OPEN;
 }
 
 void SWDSystem::closeContainer()
 {
-    this->sLCD->displayClosingContainer();
+    this->userConsole->displayClosingContainer();
     state = CLOSING_CONTAINER;
 }
 
 
 void SWDSystem::closed()
 {
-    this->sLCD->displayClose();
+    this->userConsole->displayClose();
     state = CLOSE;
 }
 
 void SWDSystem::full()
 {
-    this->sLCD->displayFull();
+    this->userConsole->displayFull();
     state = FULL;
 }
 
 void SWDSystem::problemDetected()
 {
-    this->sLCD->displayProblemDetected();
+    this->userConsole->displayProblemDetected();
     state = PROBLEM_DETECTED;
 }
 
 void SWDSystem::emptingContainer()
 {
-    this->sLCD->displayEmptingContainer();
+    this->userConsole->displayEmptingContainer();
     state = EMPTING_CONTAINER;
 }
 
 void SWDSystem::restore()
 {
-    this->sLCD->displayRestore();
+    this->userConsole->displayRestore();
     state = RESTORE;
 }
 

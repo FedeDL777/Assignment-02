@@ -82,7 +82,7 @@ public:
     Led* redLed;
 
     ServoMotor* containerDoor;
-    LCD* sLCD;
+    LCD* userConsole;
     Sonar* sSonar;
     Pir* sPir;
     SensorTemp* sTemperature;

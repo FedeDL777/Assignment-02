@@ -12,8 +12,7 @@ public class DataReceiver extends Thread {
 	static final String LOG_PREFIX 	=  "lo:";
 	static final String MSG_STATE 		= "st:";
 	
-	static final String[] stateNames = {"isAwake", "isFull", "asProblem","isInSleep", "isOpen"}; 
-
+	static final String[] stateNames = {"Awake", "Full", "Problem","InSleep", "Open", "Close", "Empting", "Restore"}; 
     //attenzione al costruttore
 	public DataReceiver(SerialCommChannel channel, SWDSystemView view, LogView log) throws Exception {
 		this.view = view;
@@ -24,6 +23,7 @@ public class DataReceiver extends Thread {
 	public void run(){
 
 		boolean isFull = true;
+		boolean isProblem = false;
 		while (true){
 			try {
 				String msg = channel.receiveMsg();
@@ -47,6 +47,14 @@ public class DataReceiver extends Thread {
 								view.setFillPercentage(wasteLevel);
 								view.setCurrentTemperature(temp);
 								view.setSWDState(stateNames[stateCode]);
+
+								if (stateCode == 2 && !isProblem) {
+									isProblem = true;
+									view.enableRestore();
+								} else if (stateCode != 2 && isProblem) {
+									isProblem = false;
+									view.enableEmpty();
+								}
 
 								if (stateCode == 1 && !isFull) { 
 									isFull = true;
