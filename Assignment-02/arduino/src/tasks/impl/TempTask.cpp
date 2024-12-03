@@ -18,7 +18,7 @@ TempTask::TempTask(SWDSystem *Machine):machine(Machine)
 
 void TempTask::tick()
 {
-    Serial.println("cur Temperature: " + String(currentTemperature));
+    
     machine->checkTemperature();
     avgTemp += machine->getTemperature();
     tempSamples++;

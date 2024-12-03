@@ -7,12 +7,15 @@ public class SWDSystemController {
     SerialCommChannel channel;
 	SWDSystemView view;
 	LogView logger;
+    //
+    DataRecevier d;
 
     public SWDSystemController(String portName, SWDSystemView view, LogView log) throws Exception {
         this.view = view;
         this.logger = log;
         this.channel = new SerialCommChannel(portName, 9600);
-        new DataRecevier(channel,view,logger).start();
+        d= new DataRecevier(channel,view,logger);
+        d.start();
 
         System.out.println("Waiting Arduino for rebooting...");		
 		Thread.sleep(4000);

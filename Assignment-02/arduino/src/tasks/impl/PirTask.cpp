@@ -16,15 +16,15 @@ void PirTask::tick()
     {
     case AWAKE:
         logOnce(F("[PT] Awake"));
+        if(!machine->isAwake()){
+            checkState();
+        }
         if(machine->getUserPresence()){
             setState(AWAKE);
         }
         if(elapsedTimeInState() > MAX_INACTIVITY_TIME){
             setState(SLEEP);
             machine->sleep();
-        }
-        if(!machine->isAwake()){
-            checkState();
         }
         break;
     case FULL:

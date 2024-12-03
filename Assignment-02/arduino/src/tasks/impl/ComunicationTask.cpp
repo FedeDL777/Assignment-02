@@ -10,14 +10,16 @@
 #define MINDIST 0.02
  
 
-  ComunicationTask::ComunicationTask(SWDSystem *machine): machine(machine)
+  ComunicationTask::ComunicationTask(SWDSystem *Machine): machine(Machine)
   {
     setState(WAIT);
+    curDistance = MAXDIST;
   }
  
 
   void ComunicationTask::tick()
   {
+  
     switch (currentState)
     {
     case WAIT:
@@ -64,7 +66,10 @@
   void ComunicationTask::handleCommand(const String &command)
   {
   }
+
     void ComunicationTask::sendStatus(int statusMessage){
+            
+      curDistance = machine->getDistance();
     double wasteLevel = getWasteLevel();    // Implementa funzione di lettura livello
     double temperature = getTemperature();  // Implementa funzione di lettura temperatura
     String status = String("cw:st:") + String(statusMessage) + 
@@ -74,9 +79,7 @@
 
   double ComunicationTask::getWasteLevel()
   {
-    machine->checkDistance();
-       double temp =  machine->getDistance();
-      return temp * ((MAXDIST - MINDIST)/MAXDIST) * 100;
+      return ((MAXDIST - curDistance)/(MAXDIST - MINDIST)) * 100;
   }
 
   double ComunicationTask::getTemperature()

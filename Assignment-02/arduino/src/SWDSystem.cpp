@@ -208,6 +208,7 @@ void SWDSystem::checkUserPir()
 
 void SWDSystem::checkDistance()
 {
+    this->checkTemperature();
     this->sSonar->setTemperature(this->sTemperature->getTemperature());
     curDistance = this->sSonar->getDistance();
 }

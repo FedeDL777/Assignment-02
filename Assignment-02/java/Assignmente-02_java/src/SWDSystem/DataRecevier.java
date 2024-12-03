@@ -15,7 +15,7 @@ public class DataRecevier extends Thread {
 	static final String[] stateNames = {"isAwake", "isFull", "asProblem","isInSleep", "isOpen"}; 
 
     //attenzione al costruttore
-	public void MonitoringAgent(SerialCommChannel channel, SWDSystemView view, LogView log) throws Exception {
+	public DataRecevier(SerialCommChannel channel, SWDSystemView view, LogView log) throws Exception {
 		this.view = view;
 		this.logger = log;
 		this.channel = channel;

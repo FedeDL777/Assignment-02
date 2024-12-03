@@ -11,6 +11,7 @@ public:
      void tick();
 
 private:
+    SWDSystem* machine;
   void setState(int s);
 
   long elapsedTimeInState();
@@ -26,9 +27,10 @@ private:
     enum State { WAIT, SENDING_DATA };  
 
     int currentState;
+    double curDistance;
   long stateTimestamp;      
   bool justEntered;          
-  SWDSystem* machine;
+
 };
 
 

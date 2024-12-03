@@ -18,6 +18,7 @@ void DetectorTask::tick()
     {
     case AWAKE:
         logOnce(F("[DT] Awake"));
+        
         if(machine->getDistance() < MIN_DIST && !machine->asProblem() 
         && !machine->isEmpting()){
             machine->full();

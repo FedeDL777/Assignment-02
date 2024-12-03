@@ -13,7 +13,7 @@
 #include "tasks/api/PirTask.h"
 #include "tasks/api/TempTask.h"
 #include "tasks/api/ComunicationTask.h"
-
+//
 Scheduler sched;
 LCD* lcd = new LCD();
 SWDSystem* machine;
@@ -48,12 +48,12 @@ void setup(){
   Task* pComunicationTask = new ComunicationTask(machine);
   pComunicationTask->init(100);
 
- // sched.addTask(pServoTask);
+  sched.addTask(pServoTask);
   sched.addTask(pLedTask);
- // sched.addTask(pPir);
+  sched.addTask(pPir);
   sched.addTask(pTempTask);
- // sched.addTask(pDetectorTask);
- // sched.addTask(pComunicationTask);
+  sched.addTask(pDetectorTask);
+  sched.addTask(pComunicationTask);
 
 
 }
