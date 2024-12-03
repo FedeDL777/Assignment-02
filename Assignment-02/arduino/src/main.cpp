@@ -15,15 +15,10 @@
 #include "tasks/api/ComunicationTask.h"
 //
 Scheduler sched;
-LCD* lcd = new LCD();
 SWDSystem* machine;
-  LiquidCrystal_I2C* pLcd = new LiquidCrystal_I2C(0x27,20,4);
+
 void setup(){
-  lcd->setup();
-  lcd->turnOn();
-  pLcd->init();
-  pLcd->backlight();
-  pLcd->clear();
+
   MsgService.init();
   sched.init(100);
 

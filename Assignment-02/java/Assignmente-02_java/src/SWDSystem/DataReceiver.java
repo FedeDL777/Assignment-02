@@ -2,7 +2,7 @@ package SWDSystem;
 
 import java.util.LinkedList;
 
-public class DataRecevier extends Thread {
+public class DataReceiver extends Thread {
 
 	SerialCommChannel channel;
 	SWDSystemView view;
@@ -15,7 +15,7 @@ public class DataRecevier extends Thread {
 	static final String[] stateNames = {"isAwake", "isFull", "asProblem","isInSleep", "isOpen"}; 
 
     //attenzione al costruttore
-	public DataRecevier(SerialCommChannel channel, SWDSystemView view, LogView log) throws Exception {
+	public DataReceiver(SerialCommChannel channel, SWDSystemView view, LogView log) throws Exception {
 		this.view = view;
 		this.logger = log;
 		this.channel = channel;

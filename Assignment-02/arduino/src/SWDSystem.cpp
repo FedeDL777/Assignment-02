@@ -1,10 +1,10 @@
 #include "SWDSystem.h"
 #include "set-up.h"
-
+#include "core/Logger.h"
 
 SWDSystem::SWDSystem() {
                             
-                         }
+}
 
 void SWDSystem::init() {
     // Inizializzazione dei Led
@@ -25,6 +25,7 @@ void SWDSystem::init() {
     containerDoor = new ServoMotor(SERVO_MOTOR);
 
     //logger
+    Logger.log("Calibrating sensors...");
     this->sPir->calibrate();
     state = AWAKE;
     preSleep = PREV_AWAKE;

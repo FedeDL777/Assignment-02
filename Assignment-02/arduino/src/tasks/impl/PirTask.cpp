@@ -1,11 +1,16 @@
 #include "tasks/api/PirTask.h"
 #include <Arduino.h>
 #include "core/Logger.h"
+#include <avr/sleep.h>
 
 #define MAX_INACTIVITY_TIME 10000
 
+void wakeUp()
+{}
+
 PirTask::PirTask(SWDSystem *Machine): machine(Machine)
 {
+    attachInterrupt(digitalPinToInterrupt(PIR_PIN), wakeUp, RISING);
     setState(AWAKE);
 }
 
@@ -24,7 +29,7 @@ void PirTask::tick()
         }
         if(elapsedTimeInState() > MAX_INACTIVITY_TIME){
             setState(SLEEP);
-            machine->sleep();
+            
         }
         break;
     case FULL:
@@ -55,11 +60,15 @@ void PirTask::tick()
         break;
     case SLEEP:
         logOnce(F("[PT] Sleep"));
-        machine->checkUserPir();
-        if(machine->getUserPresence()){
-            machine->awaking();
-            checkPreSleepState();
-        }
+        machine->sleep();
+        //
+        delay(100);
+        set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+        sleep_enable();
+        sleep_mode();
+        sleep_disable();
+        machine->awaking();
+        checkPreSleepState();
         break;
     case BLOCKED:
     checkState();
