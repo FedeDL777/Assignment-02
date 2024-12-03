@@ -65,8 +65,8 @@
   {
   }
     void ComunicationTask::sendStatus(int statusMessage){
-    int wasteLevel = getWasteLevel();    // Implementa funzione di lettura livello
-    int temperature = getTemperature();  // Implementa funzione di lettura temperatura
+    double wasteLevel = getWasteLevel();    // Implementa funzione di lettura livello
+    double temperature = getTemperature();  // Implementa funzione di lettura temperatura
     String status = String("cw:st:") + String(statusMessage) + 
                      ":" + String(wasteLevel).substring(0, 5) + ":" + String(temperature).substring(0, 5);  
     MsgService.sendMsg(status);

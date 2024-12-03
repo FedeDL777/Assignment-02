@@ -84,7 +84,7 @@ bool DetectorTask::checkFullButtonPressed()
         Msg* msg = MsgService.receiveMsg();
         if(msg != NULL){
             Logger.log("Received message: " + msg->getContent());
-                if(msg->getContent() == "FULL"){
+                if(msg->getContent() == "EMPTY"){
             pressed = true;
             }
             delete msg;
