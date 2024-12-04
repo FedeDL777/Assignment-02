@@ -1,6 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "Assignmente-02_java/lib/jssc-2.9.6.jar"
-    ]
-}
