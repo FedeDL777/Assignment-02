@@ -67,8 +67,9 @@ void PirTask::tick()
         sleep_enable();
         sleep_mode();
         sleep_disable();
-        machine->awaking();
         checkPreSleepState();
+        machine->awaking();
+  
         break;
     case BLOCKED:
         logOnce(F("[PT] Blocked"));
@@ -90,6 +91,7 @@ void PirTask::checkState()
     else{
         setState(BLOCKED);
     }
+    
 }
 void PirTask::checkPreSleepState()
 {

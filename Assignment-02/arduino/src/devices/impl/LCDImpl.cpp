@@ -30,11 +30,11 @@ void LCD::displayWelcome()
     this->turnOn();
     this->initCursor();
     pLcd->print("WELCOME TO");
-    pLcd->setCursor(1,2);
+    pLcd->setCursor(1,1);
     pLcd->print("SMART WASTE");
-    pLcd->setCursor(1,3);
+    pLcd->setCursor(1,2);
     pLcd->print("DISPOSAL");
-    pLcd->setCursor(1,4);
+    pLcd->setCursor(1,3);
     pLcd->print("CALIBRATING...");
 
 }

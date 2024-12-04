@@ -29,8 +29,8 @@ void SWDSystem::init() {
     this->userConsole->displayWelcome();
     //logger
     Logger.log("Calibrating sensors...");
-    this->userConsole->displayAwake();
     this->sPir->calibrate();
+    this->userConsole->displayAwake();
     state = AWAKE;
     preSleep = PREV_AWAKE;
 
