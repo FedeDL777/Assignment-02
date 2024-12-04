@@ -10,7 +10,9 @@ LCD::LCD()
 }
 void LCD::setup()
 {
+    pLcd->clear();
     pLcd->init();
+
   pLcd->backlight();
   pLcd->noDisplay();
 }
@@ -22,6 +24,19 @@ void LCD::turnOn()
     pLcd->backlight();
     pLcd->display();
   pLcd->clear();
+}
+void LCD::displayWelcome()
+{
+    this->turnOn();
+    this->initCursor();
+    pLcd->print("WELCOME TO");
+    pLcd->setCursor(1,2);
+    pLcd->print("SMART WASTE");
+    pLcd->setCursor(1,3);
+    pLcd->print("DISPOSAL");
+    pLcd->setCursor(1,4);
+    pLcd->print("CALIBRATING...");
+
 }
 void LCD::turnOff()
 {

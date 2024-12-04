@@ -9,7 +9,7 @@ class LCD{
 
     void turnOff();
     void turnOn();
-
+    void displayWelcome();
     void displayAwake();
     void displayOpeningContainer();
     void displayOpen();

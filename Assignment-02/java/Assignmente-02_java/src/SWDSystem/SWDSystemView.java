@@ -52,9 +52,8 @@ class SWDSystemView extends JFrame implements ActionListener{
         fillPercentage = new JTextField("--");
         fillPercentage.setEditable(false);
         fillPercentage.setPreferredSize(new Dimension(200, 15));
-        infoLine.add(new JLabel("Fill Percentage: "));
+        infoLine.add(new JLabel("Fill Percentage: %"));
         infoLine.add(fillPercentage);
-        infoLine.add(new JLabel("%"));
 
         mainPanel.add(infoLine);
         mainPanel.add(Box.createRigidArea(new Dimension(0,20)));

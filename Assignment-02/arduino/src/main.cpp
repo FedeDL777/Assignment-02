@@ -35,7 +35,7 @@ void setup(){
   pLedTask->init(100);
 
   Task* pPir = new PirTask(machine);
-  pPir->init(100);
+  pPir->init(110);
 
   Task* pTempTask = new TempTask(machine);
   pTempTask->init(100);

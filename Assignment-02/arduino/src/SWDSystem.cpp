@@ -23,12 +23,13 @@ void SWDSystem::init() {
 
     // Inizializzazione del servo motore
     containerDoor = new ServoMotor(SERVO_MOTOR);
-
+    this->userConsole->turnOff();
     this->userConsole->setup();
     this->userConsole->turnOn();
-    this->userConsole->displayAwake();
+    this->userConsole->displayWelcome();
     //logger
     Logger.log("Calibrating sensors...");
+    this->userConsole->displayAwake();
     this->sPir->calibrate();
     state = AWAKE;
     preSleep = PREV_AWAKE;
