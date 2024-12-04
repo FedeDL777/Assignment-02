@@ -1,6 +1,6 @@
 package SWDSystem;
 
-import java.util.LinkedList;
+
 
 public class DataReceiver extends Thread {
 
